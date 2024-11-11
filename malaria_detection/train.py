@@ -24,9 +24,12 @@ if(args.uninfected):
     uninfected_paths=args.uninfected
 
 if(parasitized_paths!=None and uninfected_paths!=None):
-    train_paths,val_paths=data_preprocessing(train_parasitized_paths=parasitized_paths,train_uninfected_paths=uninfected_paths)
+    paths=data_preprocessing(train_parasitized_paths=parasitized_paths,train_uninfected_paths=uninfected_paths)
 else:
-    train_paths,val_paths=data_preprocessing()
+    paths=data_preprocessing()
+FRACTION = 0.8
+train_paths = paths[0:int(FRACTION*len(paths))]
+val_paths = paths[int(FRACTION*len(paths)):]
 train_dataset = Malaria(train_paths, transform)
 val_dataset = Malaria(val_paths, transform)
 model=LeNet()

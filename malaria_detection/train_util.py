@@ -1,7 +1,7 @@
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torch.optim import Adam
-def get_accuracy(epoch,model,val_loader,val_dataset,device):
+def get_accuracy(model,val_loader,val_dataset,device):
     model.eval()
     with torch.no_grad():
         epoch_accuracy = 0
@@ -15,7 +15,8 @@ def get_accuracy(epoch,model,val_loader,val_dataset,device):
                 if(round(output[i].item()) == label[i].item()):
                     epoch_accuracy += 1
 
-    print("The Validation Accuracy for this epoch:{} is:{} ".format(epoch, 100*epoch_accuracy/len(val_dataset)))
+    # print("The Validation Accuracy for this epoch:{} is:{} ".format(epoch, 100*epoch_accuracy/len(val_dataset)))
+    return 100*epoch_accuracy/len(val_dataset)
 
 def train(train_dataset,val_dataset,model,EPOCHS=10,model_version="1.0.0",lr=1e-3):
     BATCH_SIZE = 32
@@ -55,7 +56,8 @@ def train(train_dataset,val_dataset,model,EPOCHS=10,model_version="1.0.0",lr=1e-
                     print('Epoch Number: {}, step: [{}|{}] ----> Loss: {}' .format(epoch+1, i, len(train_loader), loss.item()))
         print("Loss for epoch Number {} is :{}".format(epoch+1, epoch_loss/len(train_loader)))
 
-        get_accuracy(epoch,model,val_loader,val_dataset,device)
+        accuracy=get_accuracy(epoch,model,val_loader,val_dataset,device)
+        print("The Validation Accuracy for this epoch:{} is:{} ".format(epoch, accuracy))
 
     torch.save(model, f"malaria_detection/models/LenetMalariaDetection_{model_version}.pth")
     return model

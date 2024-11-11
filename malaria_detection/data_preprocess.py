@@ -30,8 +30,4 @@ def data_preprocessing(train_parasitized_paths='malaria_detection/data/training_
         c+=1
 
     random.shuffle(paths)
-
-    FRACTION = 0.8
-    train_paths = paths[0:int(FRACTION*len(paths))]
-    val_paths = paths[int(FRACTION*len(paths)):]
-    return train_paths,val_paths
+    return paths
