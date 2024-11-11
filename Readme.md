@@ -24,5 +24,9 @@ python -m malaria_detection.predict --path malaria_detection/data/single_predict
 ```
 python -m malaria_detection.train --epochs 2 --parasitized malaria_detection/data/testing_set/Parasitized --uninfected malaria_detection/data/testing_set/Uninfected
 ```
-
 - we can train on custome data by passing parasitized training images and uninfected training images path seperately after --parasitized  --uninfected
+
+- To test model we can run
+```
+python -m malaria_detection.test --parasitized path/to/parasitizedtestds --uninfected path/to/uninfectedtestds
+```
