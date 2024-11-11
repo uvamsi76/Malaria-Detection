@@ -24,7 +24,7 @@ def predict(image_path):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process some inputs.")
-    parser.add_argument("path", type=str, help="path for input image")
+    parser.add_argument("--path", type=str, help="path for input image")
     args = parser.parse_args()
     path='malaria_detection/data/single_prediction/Parasitised.png'
     if(args.path):

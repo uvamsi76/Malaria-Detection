@@ -8,16 +8,25 @@ warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 parser = argparse.ArgumentParser(description="Process some inputs.")
-parser.add_argument("epochs", type=int, help="number of epochs")
+parser.add_argument("--epochs", type=int, help="number of epochs")
+parser.add_argument("--parasitized", type=str, help="path for parasitised training images")
+parser.add_argument("--uninfected", type=str, help="path for uninfected training images")
 args = parser.parse_args()
 
 epochs=10
+parasitized_paths=None
+uninfected_paths=None
 if(args.epochs):
     epochs=args.epochs
+if(args.parasitized):
+    parasitized_paths=args.parasitized
+if(args.uninfected):
+    uninfected_paths=args.uninfected
 
-
-train_paths,val_paths=data_preprocessing()
-
+if(parasitized_paths!=None and uninfected_paths!=None):
+    train_paths,val_paths=data_preprocessing(train_parasitized_paths=parasitized_paths,train_uninfected_paths=uninfected_paths)
+else:
+    train_paths,val_paths=data_preprocessing()
 train_dataset = Malaria(train_paths, transform)
 val_dataset = Malaria(val_paths, transform)
 model=LeNet()
