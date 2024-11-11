@@ -14,7 +14,7 @@ pip install -r ./requirements.txt
 - To run malaria_detection model to see if the blood sample you have is parasitised or uninfected run
 
 ```
-python -m malaria_detection.predict --path single_prediction\Parasitised.png
+python -m malaria_detection.predict --path malaria_detection/data/single_prediction/Parasitised.png
 ```
 
 - we can give the image we have by passing the path to image after --path 
